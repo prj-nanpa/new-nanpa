@@ -1,5 +1,5 @@
-import { IconComponent } from "component/nanpaComponent/IconComponent";
-import { MiniContentEditComponent } from "component/nanpaComponent/MiniContentEditComponent";
+import { IconComponent } from "views/components/atom/IconComponent";
+import { MiniContentEditComponent } from "views/components/atom/MiniContentEditComponent";
 import React from "react";
 
 import { TbSend } from "react-icons/tb";

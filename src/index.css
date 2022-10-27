@@ -1,16 +1,35 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+.text-size-headline {
+  @apply text-2xl md:text-3xl;
+}
+.text-size-card-title {
+  @apply text-xl;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+.text-color-normal {
+  @apply bg-black;
+}
+.text-color-red {
+  @apply bg-red-600;
+}
+.text-color-blue {
+  @apply bg-blue-600;
+}
+.button-color-green {
+  @apply bg-green-500/90 border-2 border-green-300/80;
+}
+.button-color-blue {
+  @apply bg-blue-500/90 border-2 border-blue-300/80;
+}
+.button-color-red {
+  @apply bg-red-500/90 border-2 border-red-300/80;
+}
+.button-color-gray {
+  @apply bg-gray-500/90 border-2 border-gray-300/80;
 }

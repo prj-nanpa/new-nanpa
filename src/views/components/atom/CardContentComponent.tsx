@@ -34,7 +34,7 @@ export const CardContentComponent = (props: Props) => {
         className={
           "relative flex flex-col items-center " +
           " rounded-md shadow-md overflow-hidden " +
-          " w-full max-w-sm h-[500px]"
+          " w-full max-w-xs h-[500px]"
         }
       >
         <div

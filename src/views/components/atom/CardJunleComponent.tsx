@@ -15,7 +15,7 @@ export const CardJunleComponent = (props: Props) => {
         className={
           "relative flex flex-row md:flex-col justify-around" +
           "overflow-hidden " +
-          "border-2 border-gray-700 rounded-lg mt-8 " +
+          "border-2 border-gray-700 rounded-lg " +
           "w-72 md:w-60 h-28 md:h-96"
         }
       >

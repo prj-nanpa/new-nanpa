@@ -1,5 +1,5 @@
 import React from "react";
-import IdeaMan from "component/nanpaImage/IdeaMan.png";
+import IdeaMan from "images/IdeaMan.png";
 
 type Props = {
   onClick: () => void;
