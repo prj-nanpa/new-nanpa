@@ -101,8 +101,10 @@ export const EventListPage = () => {
 
   return (
     <>
-      <SearchFormComponent onClick={onClickDummy} tagList={TagList} />
-      <div className="flex flex-col w-full">
+      <section className="flex w-full">
+        <SearchFormComponent onClick={onClickDummy} tagList={TagList} />
+      </section>
+      <section className="flex flex-col w-full">
         <TitleComponent text="締め切りが近いイベント" />
         <div className="flex flex-col md:flex-row flex-wrap items-center justify-around">
           {[
@@ -137,7 +139,7 @@ export const EventListPage = () => {
             onClickRight={onClickDummy}
           />
         </div>
-      </div>
+      </section>
     </>
   );
 };

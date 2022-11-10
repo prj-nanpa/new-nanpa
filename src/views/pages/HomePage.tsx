@@ -5,13 +5,6 @@ import { CardJunleComponent } from "views/components/atom/CardJunleComponent";
 import { SearchLinkComponent } from "views/components/atom/SearchLinkComponent";
 import { TitleComponent } from "views/components/atom/TitleComponent";
 export const HomePage = () => {
-  const onClickSearchLink = () => {
-    console.log("point");
-  };
-  const onClickDummy = () => {
-    console.log("point");
-  };
-
   const EventData: EventType = {
     eventId: 1,
     userId: "xxxxxxx",
@@ -39,35 +32,45 @@ export const HomePage = () => {
     eventTagsId: [1, 2],
   };
 
+  const onClickSearchLink = () => {
+    console.log("point");
+  };
+  const onClickDummy = () => {
+    console.log("point");
+  };
   return (
     <>
-      <SearchLinkComponent onClick={onClickSearchLink} />
-      <div className="flex flex-col w-full">
-        <TitleComponent text="ジャンルから探す" />
-        <div className="flex flex-col md:flex-row items-center justify-around">
-          <CardJunleComponent
-            title="お酒"
-            imageLink="https://placehold.jp/150x150.png"
-            onClick={onClickDummy}
-          />
-          <CardJunleComponent
-            title="勉強"
-            imageLink="https://placehold.jp/150x150.png"
-            onClick={onClickDummy}
-          />
-          <CardJunleComponent
-            title="ゲーム"
-            imageLink="https://placehold.jp/150x150.png"
-            onClick={onClickDummy}
-          />
-          <CardJunleComponent
-            title="運動"
-            imageLink="https://placehold.jp/150x150.png"
-            onClick={onClickDummy}
-          />
+      <section className="flex w-full">
+        <SearchLinkComponent onClick={onClickSearchLink} />
+      </section>
+      <section className="flex w-full">
+        <div className="flex flex-col w-full">
+          <TitleComponent text="ジャンルから探す" />
+          <div className="flex flex-col md:flex-row items-center justify-around">
+            <CardJunleComponent
+              title="お酒"
+              imageLink="https://placehold.jp/150x150.png"
+              onClick={onClickDummy}
+            />
+            <CardJunleComponent
+              title="勉強"
+              imageLink="https://placehold.jp/150x150.png"
+              onClick={onClickDummy}
+            />
+            <CardJunleComponent
+              title="ゲーム"
+              imageLink="https://placehold.jp/150x150.png"
+              onClick={onClickDummy}
+            />
+            <CardJunleComponent
+              title="運動"
+              imageLink="https://placehold.jp/150x150.png"
+              onClick={onClickDummy}
+            />
+          </div>
         </div>
-      </div>
-      <div className="flex flex-col w-full">
+      </section>
+      <section className="flex flex-col w-full">
         <TitleComponent text="締め切りが近いイベント" />
         <div className="flex flex-col md:flex-row items-center justify-around">
           {[EventData, EventData, EventData].map(
@@ -89,8 +92,8 @@ export const HomePage = () => {
             )
           )}
         </div>
-      </div>
-      <div className="flex flex-col w-full">
+      </section>
+      <section className="flex flex-col w-full">
         <TitleComponent text="あなたが関心ありそうなイベント" />
         <div className="flex flex-col md:flex-row items-center justify-around">
           {[EventData, EventData, EventData].map(
@@ -112,7 +115,7 @@ export const HomePage = () => {
             )
           )}
         </div>
-      </div>
+      </section>
     </>
   );
 };

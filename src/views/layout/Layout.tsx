@@ -20,7 +20,7 @@ export const Layout = () => {
         logoClick={onClickLogo}
         btnClick={onClickMypage}
       />
-      <main className="flex flex-col items-center m-auto w-full max-w-6xl">
+      <main className="flex flex-col items-center p-4 md:p-0 m-auto w-full max-w-6xl">
         <Outlet />
       </main>
       <ButtonCreateFloatComponent onClick={onClickCreateEvent} />
