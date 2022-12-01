@@ -1,11 +1,15 @@
 import { EventType } from "types/EventType";
-import { TagData0, TagData1 } from "./Tag";
-import { UserMinDate1, UserMinDate2 } from "./User";
 
 export const EventData: EventType = {
   eventId: 1,
   userId: "xxxxxxx",
-  eventOwner: UserMinDate1,
+  eventOwner: {
+    userEmail: "dtrz0711@gmail.com",
+    userIcon: "https://placehold.jp/3697c7/ffffff/150x150.png?text=dummy1",
+    userId: "xxxxxxx",
+    userName: "龍ちゃん",
+    userNickname: "龍ちゃん",
+  },
   eventLeftDate: 1,
   eventImage: "https://placehold.jp/150x150.png",
   eventName: "title title",
@@ -13,12 +17,38 @@ export const EventData: EventType = {
   eventDeadline: "2022-12-02",
   eventDate: "2022-02-20",
   eventPlace: "池袋",
-  eventBudget: 1000,
+  eventBudget: "1000",
   eventMinGuest: "12",
   eventMaxGuest: "23",
   eventCreatedDate: "2022-12-03",
-  eventGuests: [UserMinDate1, UserMinDate2],
+  eventGuests: [
+    {
+      userEmail: "dtrz0711@gmail.com",
+      userIcon: "https://placehold.jp/3697c7/ffffff/150x150.png?text=dummy1",
+      userId: "xxxxxxx",
+      userName: "龍ちゃん",
+      userNickname: "龍ちゃん",
+    },
+    {
+      userEmail: "dtrz0711@gmail.com",
+      userIcon: "https://placehold.jp/3697c7/ffffff/150x150.png?text=dummy2",
+      userId: "xxxxxxx",
+      userName: "龍ちゃん1",
+      userNickname: "龍ちゃん1",
+    },
+  ],
   eventGuestLength: 2,
-  eventTags: [TagData0, TagData1],
+  eventTags: [
+    {
+      tagColor: "blue",
+      tagId: 1,
+      tagValue: "blue",
+    },
+    {
+      tagColor: "blue",
+      tagId: 1,
+      tagValue: "blue",
+    },
+  ],
   eventTagsId: [1, 2],
 };

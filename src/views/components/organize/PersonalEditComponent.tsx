@@ -1,3 +1,7 @@
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+
 import { MiniTitleComponent } from "views/components/atom/MiniTitleComponent";
 import { GrInstagram, GrMail } from "react-icons/gr";
 import { BsTwitter } from "react-icons/bs";
@@ -7,30 +11,18 @@ import { ButtonNormalComponent } from "views/components/atom/ButtonNormalCompone
 import { MiniContentEditComponent } from "views/components/atom/MiniContentEditComponent";
 import { IconContentEditComponent } from "views/components/atom/IconContentEditComponent";
 import { TipsContentEditComponent } from "views/components/atom/TipsContentEditComponent";
-import { EventType } from "types/EventType";
+
+import { UserType } from "types/UserType";
 import { TagType } from "types/TagType";
 
+import { TagList } from "example/Tag";
+
 type Props = {
-  userId: string;
-  userEmail: string;
-  userName: string;
-  userNickname: string;
-  userIcon: string;
-  userCoe: string;
-  userSl: string;
-  userComment: string;
-  userTags: TagType[];
-  userLineQr: string;
-  userTwitterId: string;
-  userInstagramId: string;
-  userFacebookId: string;
-  hostEvent: EventType[];
-  joinEvent: EventType[];
-  pastEvent: EventType[];
-  userTagsId: Array<number>;
+  userData: UserType;
 };
 
 export const PersonalEditComponent = (props: Props) => {
+  const { userData } = props;
   const {
     userEmail,
     userName,
@@ -39,7 +31,6 @@ export const PersonalEditComponent = (props: Props) => {
     userCoe,
     userSl,
     userComment,
-    userTags,
     userLineQr,
     userTwitterId,
     userInstagramId,
@@ -47,19 +38,67 @@ export const PersonalEditComponent = (props: Props) => {
     hostEvent,
     joinEvent,
     pastEvent,
+    userId,
+    userTags,
     userTagsId,
-  } = props;
-  const onClick = () => {
-    console.log("point");
+  } = userData;
+
+  const schema = yup.object().shape({
+    userName: yup
+      .string()
+      .typeError("文字列を入力してください")
+      .required("名前の入力は必須です。"),
+    userNickname: yup
+      .string()
+      .typeError("文字列を入力してください")
+      .required("名前の入力は必須です。"),
+  });
+
+  const {
+    handleSubmit,
+    formState: { errors },
+    control,
+  } = useForm<UserType>({
+    resolver: yupResolver(schema),
+    defaultValues: {
+      userEmail,
+      userName,
+      userNickname,
+      userIcon,
+      userCoe,
+      userSl,
+      userComment,
+      userLineQr,
+      userTwitterId,
+      userInstagramId,
+      userFacebookId,
+      hostEvent,
+      joinEvent,
+      pastEvent,
+      userId,
+      userTags,
+      userTagsId,
+    },
+  });
+
+  const onSubmit: SubmitHandler<UserType> = (formData: UserType) => {
+    const temp: UserType = formData;
+    console.log(temp);
   };
+
+  const onClick = () => {
+    console.log("click");
+  };
+
   return (
     <>
-      <div
+      <form
         className={
           "inline-flex flex-col md:flex-row items-center md:items-start gap-y-2 " +
           " shadow-lg p-2 " +
           " w-full max-w-5xl h-auto "
         }
+        onSubmit={handleSubmit(onSubmit)}
       >
         <div
           className={
@@ -76,31 +115,76 @@ export const PersonalEditComponent = (props: Props) => {
         >
           <div className={"inline-block md:w-1/2 md:px-2"}>
             <MiniTitleComponent text="名前" />
-            <MiniContentEditComponent text={userNickname} />
+            <Controller
+              control={control}
+              name="userNickname"
+              render={({ field }) => (
+                <MiniContentEditComponent
+                  value={field.value}
+                  onChange={field.onChange}
+                />
+              )}
+            />
           </div>
           <div className={"inline-block md:w-1/2 md:px-2"}>
             <MiniTitleComponent text="本名" />
-            <MiniContentEditComponent text={userName} />
+            <Controller
+              control={control}
+              name="userName"
+              render={({ field }) => (
+                <MiniContentEditComponent
+                  value={field.value}
+                  onChange={field.onChange}
+                />
+              )}
+            />
           </div>
           <div className={"inline-block md:w-1/2 md:px-2"}>
             <MiniTitleComponent text="所属CoE" />
-            <MiniContentEditComponent text={userCoe} />
+            <Controller
+              control={control}
+              name="userCoe"
+              render={({ field }) => (
+                <MiniContentEditComponent
+                  value={field.value}
+                  onChange={field.onChange}
+                />
+              )}
+            />{" "}
           </div>
           <div className={"inline-block md:w-1/2 md:px-2"}>
             <MiniTitleComponent text="所属SL" />
-            <MiniContentEditComponent text={userSl} />
+            <Controller
+              control={control}
+              name="userSl"
+              render={({ field }) => (
+                <MiniContentEditComponent
+                  value={field.value}
+                  onChange={field.onChange}
+                />
+              )}
+            />{" "}
           </div>
-          <div className={"inline-block md:px-2 w-full"}>
+          <div className={"inline-flex flex-col md:px-2 w-full"}>
             <div className={"inline-block w-full md:w-1/2"}>
               <MiniTitleComponent text="一言自己紹介" />
             </div>
-            <textarea
-              className={"px-2 py-1 w-full h-40 bg-gray-200/50 resize-none"}
-              placeholder="input"
-              value={userComment}
+            <Controller
+              control={control}
+              name="userComment"
+              render={({ field }) => (
+                <textarea
+                  className={"px-2 py-1 w-full h-40 bg-gray-200/50 resize-none"}
+                  placeholder="input"
+                  value={field.value}
+                  onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => {
+                    field.onChange(event.target.value);
+                  }}
+                />
+              )}
             />
           </div>
-          <div className={"inline-block md:px-2 w-full"}>
+          <div className={"inline-flex flex-col md:px-2 w-full"}>
             <div className={"inline-block w-full md:w-1/2"}>
               <MiniTitleComponent text="興味のあるタグ" />
             </div>
@@ -109,27 +193,30 @@ export const PersonalEditComponent = (props: Props) => {
                 "inline-flex flex-row flex-wrap gap-2" + " w-full h-auto"
               }
             >
-              <TipsContentEditComponent
-                text="コンテント"
-                color="red"
-                onClick={onClick}
-                select={true}
-              />
-              <TipsContentEditComponent
-                text="コンテント"
-                color="blue"
-                onClick={onClick}
-                select={true}
-              />
-              <TipsContentEditComponent
-                text="コンテント"
-                color="blue"
-                onClick={onClick}
-                select={true}
-              />
+              {TagList.map((tag: TagType) => (
+                <Controller
+                  key={tag.tagId}
+                  control={control}
+                  name="userTagsId"
+                  render={({ field }) => (
+                    <TipsContentEditComponent
+                      text={tag.tagValue}
+                      color={tag.tagColor}
+                      onClick={() =>
+                        field.onChange(
+                          field.value.includes(tag.tagId)
+                            ? field.value.filter((value) => value != tag.tagId)
+                            : [...field.value, tag.tagId]
+                        )
+                      }
+                      select={field.value.includes(tag.tagId)}
+                    />
+                  )}
+                />
+              ))}
             </div>
           </div>
-          <div className={"inline-block md:px-2 w-full"}>
+          <div className={"inline-flex flex-col md:px-2 w-full"}>
             <div className={"inline-block w-full md:w-1/2"}>
               <MiniTitleComponent text="SNS" />
             </div>
@@ -144,25 +231,55 @@ export const PersonalEditComponent = (props: Props) => {
                   " w-full md:w-1/2 h-auto"
                 }
               >
-                <IconContentEditComponent
-                  text={userEmail}
-                  IconContent={<GrMail className="w-full h-full" />}
-                  onClick={onClick}
+                <Controller
+                  control={control}
+                  name="userEmail"
+                  render={({ field }) => (
+                    <IconContentEditComponent
+                      text={field.value}
+                      IconContent={<GrMail className="w-full h-full" />}
+                      onClick={onClick}
+                      onChange={field.onChange}
+                    />
+                  )}
                 />
-                <IconContentEditComponent
-                  text={userTwitterId}
-                  IconContent={<BsTwitter className="w-full h-full" />}
-                  onClick={onClick}
+                <Controller
+                  control={control}
+                  name="userTwitterId"
+                  render={({ field }) => (
+                    <IconContentEditComponent
+                      text={field.value}
+                      IconContent={<BsTwitter className="w-full h-full" />}
+                      onClick={onClick}
+                      onChange={field.onChange}
+                    />
+                  )}
                 />
-                <IconContentEditComponent
-                  text={userInstagramId}
-                  IconContent={<GrInstagram className="w-full h-full" />}
-                  onClick={onClick}
+                <Controller
+                  control={control}
+                  name="userInstagramId"
+                  render={({ field }) => (
+                    <IconContentEditComponent
+                      text={field.value}
+                      IconContent={<GrInstagram className="w-full h-full" />}
+                      onClick={onClick}
+                      onChange={field.onChange}
+                    />
+                  )}
                 />
-                <IconContentEditComponent
-                  text={userFacebookId}
-                  IconContent={<FaFacebookSquare className="w-full h-full" />}
-                  onClick={onClick}
+                <Controller
+                  control={control}
+                  name="userFacebookId"
+                  render={({ field }) => (
+                    <IconContentEditComponent
+                      text={field.value}
+                      IconContent={
+                        <FaFacebookSquare className="w-full h-full" />
+                      }
+                      onClick={onClick}
+                      onChange={field.onChange}
+                    />
+                  )}
                 />
               </div>
               <div
@@ -187,10 +304,18 @@ export const PersonalEditComponent = (props: Props) => {
             }
           >
             <div className={"inline-block w-full md:w-1/2"}>
-              <ButtonNormalComponent text="送信" onClick={onClick} />
+              <ButtonNormalComponent
+                text="送信"
+                onClick={onClick}
+                type="submit"
+              />
             </div>
           </div>
         </div>
+      </form>
+      <div>
+        {errors.userNickname?.message}
+        {errors.userName?.message}
       </div>
     </>
   );

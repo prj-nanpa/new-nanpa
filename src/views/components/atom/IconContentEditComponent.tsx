@@ -4,10 +4,14 @@ type Props = {
   text: string;
   IconContent: JSX.Element;
   onClick: () => void;
+  onChange: (value: string) => void;
 };
 
 export const IconContentEditComponent = (props: Props) => {
-  const { text, IconContent, onClick } = props;
+  const { text, IconContent, onClick, onChange } = props;
+  const onChangeText = (e: React.ChangeEvent<HTMLInputElement>) => {
+    onChange(e.target.value);
+  };
   return (
     <>
       <div
@@ -25,6 +29,7 @@ export const IconContentEditComponent = (props: Props) => {
             value={text}
             className=" px-2 py-1 bg-gray-200/50 w-full h-full"
             placeholder="input"
+            onChange={onChangeText}
           />
         </div>
       </div>

@@ -4,10 +4,11 @@ type Props = {
   text: string;
   color: string;
   onClick: () => void;
+  type?: string;
 };
 
 export const ButtonRegisterComponent = (props: Props) => {
-  const { text, color, onClick } = props;
+  const { text, color, onClick, type } = props;
   const Color = (): string => {
     switch (color) {
       case "red":
@@ -22,7 +23,8 @@ export const ButtonRegisterComponent = (props: Props) => {
   };
   return (
     <>
-      <div
+      <button
+        type={type == "submit" ? "submit" : "button"}
         className={
           "flex justify-center items-center " +
           ` rounded-lg ${Color()} ` +
@@ -33,7 +35,7 @@ export const ButtonRegisterComponent = (props: Props) => {
         onClick={onClick}
       >
         {text}
-      </div>
+      </button>
     </>
   );
 };

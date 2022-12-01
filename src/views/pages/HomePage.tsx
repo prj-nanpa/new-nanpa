@@ -4,34 +4,10 @@ import { CardContentComponent } from "views/components/atom/CardContentComponent
 import { CardJunleComponent } from "views/components/atom/CardJunleComponent";
 import { SearchLinkComponent } from "views/components/atom/SearchLinkComponent";
 import { TitleComponent } from "views/components/atom/TitleComponent";
-export const HomePage = () => {
-  const EventData: EventType = {
-    eventId: 1,
-    userId: "xxxxxxx",
-    eventOwner: {
-      userEmail: "",
-      userIcon: "https://placehold.jp/150x150.png",
-      userId: "",
-      userName: "",
-      userNickname: "",
-    },
-    eventLeftDate: 1,
-    eventImage: "https://placehold.jp/150x150.png",
-    eventName: "title title",
-    eventNote: "コンテントコンテント",
-    eventDeadline: "2022-12-02",
-    eventDate: "2022-02-20",
-    eventPlace: "池袋",
-    eventBudget: 1000,
-    eventMinGuest: "12",
-    eventMaxGuest: "23",
-    eventCreatedDate: "2022-12-03",
-    eventGuests: [],
-    eventGuestLength: 2,
-    eventTags: [],
-    eventTagsId: [1, 2],
-  };
 
+import { EventData } from "example/Event";
+
+export const HomePage = () => {
   const onClickSearchLink = () => {
     console.log("point");
   };

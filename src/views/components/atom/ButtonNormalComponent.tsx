@@ -4,13 +4,18 @@ import { MdArrowRightAlt } from "react-icons/md";
 type Props = {
   text: string;
   onClick: () => void;
+  type?: string;
 };
 
 export const ButtonNormalComponent = (props: Props) => {
-  const { text, onClick } = props;
+  const { text, onClick, type } = props;
+
   return (
     <>
-      <div
+      <button
+        type={
+          type == "submit" ? "submit" : type == "reset" ? "reset" : "button"
+        }
         className={
           "inline-flex flex-row items-center " +
           " rounded-md button-color-gray " +
@@ -26,7 +31,7 @@ export const ButtonNormalComponent = (props: Props) => {
         >
           <MdArrowRightAlt className="w-6 h-6" />
         </div>
-      </div>
+      </button>
     </>
   );
 };

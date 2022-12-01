@@ -89,7 +89,7 @@ export const CommentComponent = (props: Props) => {
         </div>
         <div className={"inline-flex flex-col " + "w-full max-w-3xl "}>
           <div className={"inline-flex flex-row " + " w-full "}>
-            <MiniContentEditComponent text="" />
+            {/* <MiniContentEditComponent text="" /> */}
             <div
               className={
                 "inline-flex justify-center items-center " +
@@ -97,6 +97,7 @@ export const CommentComponent = (props: Props) => {
                 " hover:cursor-pointer"
               }
             >
+              <input type="submit" className="hidden" />
               <TbSend className="h-7 w-7 text-green-500" />
             </div>
           </div>

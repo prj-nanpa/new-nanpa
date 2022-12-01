@@ -1,76 +1,13 @@
 import React from "react";
-import { CommentType } from "types/CommentType";
-import { EventType } from "types/EventType";
 import { DeadlineBordComponent } from "views/components/atom/DeadlineBordComponent";
 import { TipsContentComponent } from "views/components/atom/TipsContentComponent";
 import { TitleComponent } from "views/components/atom/TitleComponent";
 import { CommentComponent } from "views/components/organize/CommentComponent";
 import { PageContentComponent } from "views/components/organize/PageContentComponent";
-export const EventPage = () => {
-  const EventData: EventType = {
-    eventId: 1,
-    userId: "xxxxxxx",
-    eventOwner: {
-      userEmail: "",
-      userIcon: "https://placehold.jp/150x150.png",
-      userId: "",
-      userName: "",
-      userNickname: "",
-    },
-    eventLeftDate: 1,
-    eventImage: "https://placehold.jp/150x150.png",
-    eventName: "title title",
-    eventNote: "コンテントコンテント",
-    eventDeadline: "2022-12-02",
-    eventDate: "2022-02-20",
-    eventPlace: "池袋",
-    eventBudget: 1000,
-    eventMinGuest: "12",
-    eventMaxGuest: "23",
-    eventCreatedDate: "2022-12-03",
-    eventGuests: [],
-    eventGuestLength: 2,
-    eventTags: [],
-    eventTagsId: [1, 2],
-  };
 
-  const commentDataList: CommentType[] = [
-    {
-      userId: "xxxx",
-      userIcon:
-        "https://placehold.jp/30/dd6699/ffffff/150x150.png?text=placeholder+image",
-      commentDate: "2021-12-21",
-      commentText: "comment",
-    },
-    {
-      userId: "xxxx",
-      userIcon:
-        "https://placehold.jp/30/dd6699/ffffff/150x150.png?text=placeholder+image",
-      commentDate: "2021-12-21",
-      commentText: "comment",
-    },
-    {
-      userId: "xxxx",
-      userIcon:
-        "https://placehold.jp/30/dd6699/ffffff/150x150.png?text=placeholder+image",
-      commentDate: "2021-12-21",
-      commentText: "comment",
-    },
-    {
-      userId: "xxxx",
-      userIcon:
-        "https://placehold.jp/30/dd6699/ffffff/150x150.png?text=placeholder+image",
-      commentDate: "2021-12-21",
-      commentText: "comment",
-    },
-    {
-      userId: "xxxx",
-      userIcon:
-        "https://placehold.jp/30/dd6699/ffffff/150x150.png?text=placeholder+image",
-      commentDate: "2021-12-21",
-      commentText: "comment",
-    },
-  ];
+import { EventData } from "example/Event";
+import { commentDataList } from "example/Comment";
+export const EventPage = () => {
   return (
     <>
       <section className="flex flex-col w-full">

@@ -97,7 +97,7 @@ type Props = {
   eventDeadline: string;
   eventDate: string;
   eventPlace: string;
-  eventBudget: number;
+  eventBudget: string;
   eventMinGuest: string;
   eventMaxGuest: string;
   eventCreatedDate: string;

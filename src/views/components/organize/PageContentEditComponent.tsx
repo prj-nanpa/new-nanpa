@@ -1,10 +1,15 @@
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+
 import { ButtonRegisterComponent } from "views/components/atom/ButtonRegisterComponent";
 import { MiniContentEditComponent } from "views/components/atom/MiniContentEditComponent";
 import { TipsContentEditComponent } from "views/components/atom/TipsContentEditComponent";
 import React from "react";
-import { TagList } from "example/Tag";
 import { TagType } from "types/TagType";
-import { UserMiniInfoType } from "types/UserMiniInfoType";
+import { EventType } from "types/EventType";
+
+import { TagList } from "example/Tag";
 
 type LayoutProps = {
   title: string;
@@ -70,26 +75,10 @@ const TextAreaLayout = (props: LayoutProps) => {
 };
 
 type Props = {
-  eventId: number;
-  userId: string;
-  eventOwner: UserMiniInfoType;
-  eventLeftDate: number;
-  eventImage: string;
-  eventName: string;
-  eventNote: string;
-  eventDeadline: string;
-  eventDate: string;
-  eventPlace: string;
-  eventBudget: number;
-  eventMinGuest: string;
-  eventMaxGuest: string;
-  eventCreatedDate: string;
-  eventGuests: UserMiniInfoType[];
-  eventGuestLength: number;
-  eventTags: TagType[];
-  eventTagsId: number[];
+  event: EventType;
 };
 export const PageContentEditComponent = (props: Props) => {
+  const { event } = props;
   const {
     eventBudget,
     eventCreatedDate,
@@ -109,59 +98,166 @@ export const PageContentEditComponent = (props: Props) => {
     eventTags,
     eventTagsId,
     userId,
-  } = props;
+  } = event;
+
+  const schema = yup.object().shape({
+    eventName: yup
+      .string()
+      .typeError("文字列を入力してください")
+      .required("名前の入力は必須です。"),
+    eventNote: yup
+      .string()
+      .typeError("文字列を入力してください")
+      .required("名前の入力は必須です。"),
+  });
+
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+    control,
+  } = useForm<EventType>({
+    resolver: yupResolver(schema),
+    defaultValues: {
+      eventBudget,
+      eventCreatedDate,
+      eventDate,
+      eventDeadline,
+      eventGuestLength,
+      eventGuests,
+      eventId,
+      eventImage,
+      eventLeftDate,
+      eventMaxGuest,
+      eventMinGuest,
+      eventName,
+      eventNote,
+      eventOwner,
+      eventPlace,
+      eventTags,
+      eventTagsId,
+      userId,
+    },
+  });
+  const onSubmit: SubmitHandler<EventType> = (formData: EventType) => {
+    const temp: EventType = formData;
+    console.log(temp);
+  };
   const onClick = () => {
     console.log("point");
   };
   return (
     <>
-      <div
+      <form
         className={
           "inline-flex flex-col justify-center items-center gap-y-4 md:gap-y-12  " +
           " shadow-lg p-2 " +
           " w-full max-w-5xl h-auto "
         }
+        onSubmit={handleSubmit(onSubmit)}
       >
-        <InputLayout
-          title="イベント名"
-          input={<MiniContentEditComponent text={eventName} />}
-        />
-        <TextAreaLayout
-          title="募集文章"
-          input={
-            <textarea
-              className="px-2 py-1 bg-gray-200/50 w-full h-36 resize-none"
-              value={eventNote}
+        <Controller
+          control={control}
+          name="eventName"
+          render={({ field }) => (
+            <InputLayout
+              title="イベント名"
+              input={
+                <MiniContentEditComponent
+                  value={field.value}
+                  onChange={field.onChange}
+                />
+              }
             />
-          }
+          )}
         />
-        <InputLayout
-          title="募集締め切り"
-          input={<MiniContentEditComponent text={eventDeadline} />}
+        <Controller
+          control={control}
+          name="eventNote"
+          render={({ field }) => (
+            <TextAreaLayout
+              title="募集文章"
+              input={
+                <textarea
+                  className="px-2 py-1 bg-gray-200/50 w-full h-36 resize-none"
+                  value={field.value}
+                  onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => {
+                    field.onChange(event.target.value);
+                  }}
+                />
+              }
+            />
+          )}
         />
-        <InputLayout
-          title="開催日時"
-          input={<MiniContentEditComponent text={eventDate} />}
+        <Controller
+          control={control}
+          name="eventDeadline"
+          render={({ field }) => (
+            <InputLayout
+              title="募集締め切り"
+              input={
+                <MiniContentEditComponent
+                  value={field.value}
+                  onChange={field.onChange}
+                />
+              }
+            />
+          )}
         />
-        <InputLayout
-          title="開催場所"
-          input={<MiniContentEditComponent text={eventPlace} />}
+        <Controller
+          control={control}
+          name="eventDate"
+          render={({ field }) => (
+            <InputLayout
+              title="開催日時"
+              input={
+                <MiniContentEditComponent
+                  value={field.value}
+                  onChange={field.onChange}
+                />
+              }
+            />
+          )}
         />
-        <InputLayout
-          title="予算"
-          input={<MiniContentEditComponent text={eventBudget.toString()} />}
+        <Controller
+          control={control}
+          name="eventBudget"
+          render={({ field }) => (
+            <InputLayout
+              title="予算"
+              input={
+                <MiniContentEditComponent
+                  value={field.value}
+                  onChange={field.onChange}
+                />
+              }
+            />
+          )}
         />
+
         <InputLayout
           title="タグ"
           input={
             <>
-              {TagList.map((value: TagType) => (
-                <TipsContentEditComponent
-                  key={value.tagId}
-                  color={value.tagColor}
-                  text={value.tagValue}
-                  select={false}
-                  onClick={onClick}
+              {TagList.map((tag: TagType) => (
+                <Controller
+                  key={tag.tagId}
+                  control={control}
+                  name="eventTagsId"
+                  render={({ field }) => (
+                    <TipsContentEditComponent
+                      text={tag.tagValue}
+                      color={tag.tagColor}
+                      onClick={() =>
+                        field.onChange(
+                          field.value.includes(tag.tagId)
+                            ? field.value.filter((value) => value != tag.tagId)
+                            : [...field.value, tag.tagId]
+                        )
+                      }
+                      select={field.value.includes(tag.tagId)}
+                    />
+                  )}
                 />
               ))}
             </>
@@ -174,13 +270,13 @@ export const PageContentEditComponent = (props: Props) => {
               <input
                 className="px-2 py-1 bg-gray-200/50 w-12 h-8"
                 type="text"
-                value={eventMinGuest}
+                {...register("eventMinGuest")}
               />
               ~
               <input
                 className="px-2 py-1 bg-gray-200/50 w-12 h-8"
                 type="text"
-                value={eventMaxGuest}
+                {...register("eventMaxGuest")}
               />
             </div>
           }
@@ -190,8 +286,13 @@ export const PageContentEditComponent = (props: Props) => {
             text="公開"
             color="green"
             onClick={onClick}
+            type="submit"
           />
         </div>
+      </form>
+      <div>
+        {errors.eventName?.message}
+        {errors.eventNote?.message}
       </div>
     </>
   );
